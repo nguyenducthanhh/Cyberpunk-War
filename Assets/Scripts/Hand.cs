@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class Hand : MonoBehaviour
 {
@@ -70,8 +71,6 @@ public class Hand : MonoBehaviour
             transform.localPosition = leftLocalPosHand; 
             firePoint.localPosition = fireL;
         }
-
-
 
     }
 }

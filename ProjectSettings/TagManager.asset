@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -11,7 +12,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - PlayerLayer
   - 
   - 
   - 
@@ -40,4 +41,28 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Road
+    uniqueID: 2000607889
+    locked: 0
+  - name: Top Down
+    uniqueID: 2866743565
+    locked: 0
+  - name: Player
+    uniqueID: 4106834011
+    locked: 0
+  - name: Bullet
+    uniqueID: 1685808351
+    locked: 0
+  - name: Enemy
+    uniqueID: 1301366557
+    locked: 0
+  - name: Blood
+    uniqueID: 1167800017
+    locked: 0
+  - name: HpBar
+    uniqueID: 1876466051
+    locked: 0
+  - name: GameUI
+    uniqueID: 4027160911
     locked: 0

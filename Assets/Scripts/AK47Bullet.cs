@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour
@@ -7,7 +8,7 @@ public class PlayerBullet : MonoBehaviour
     [SerializeField] private float moveSpeed = 30f;
     [SerializeField] private float timeDestroy = 1f;
     [SerializeField] private float damage = 10f;
-    // [SerializeField] private GameObject bloodPrefab;
+    [SerializeField] private GameObject bloodPrefab;
     void Start()
     {
         Destroy(gameObject, timeDestroy);
@@ -28,10 +29,12 @@ public class PlayerBullet : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            //GameObject blood = Instantiate(bloodPrefab, transform.position, Quaternion.identity);
-            // Destroy(blood, 1f);
-            // Enemy enemy = collision.GetComponent<Enemy>();
-            //enemy.TakeDamage(damage);
+            GameObject blood = Instantiate(bloodPrefab, transform.position, Quaternion.identity);
+            Destroy(blood, 1f);
+            Enemy enemy = collision.GetComponent<Enemy>();
+            enemy.TakeDamage(damage);
+            Destroy(gameObject);
+
         }
     }
 }
