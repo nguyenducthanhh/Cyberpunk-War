@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    //[SerializeField] private AudioSource defaultAudioSource;
-    // [SerializeField] private AudioSource bossAudioSource;
+    [SerializeField] private AudioSource defaultAudioSource;
+    [SerializeField] private AudioSource bossAudioSource;
     [SerializeField] private AudioSource effectAudioSource;
     [SerializeField] private AudioClip shootClip;
     [SerializeField] private AudioClip reloadClip;
-    // [SerializeField] private AudioClip energyclip;
+    [SerializeField] private AudioClip moneyClip;
+    [SerializeField] private AudioClip healClip;
 
     public void PlayShootSound()
     {
@@ -22,29 +23,32 @@ public class AudioManager : MonoBehaviour
         effectAudioSource.PlayOneShot(reloadClip);
     }
 
-    //public void PlayEnergySound()
-    //{
-    //    effectAudioSource.PlayOneShot(energyclip);
-    //}
+    public void PlayMoneySound()
+    {
+        effectAudioSource.PlayOneShot(moneyClip);
+    }
 
-    //public void PlayDefaultAudio()
-    //{
-    //    bossAudioSource.Stop();
-    //    defaultAudioSource.Play();
-    //}
+    public void PlayHealSound()
+    {
+        effectAudioSource.PlayOneShot(healClip);
+    }
 
+    public void PlayDefaultAudio()
+    {
+        bossAudioSource.Stop();
+        defaultAudioSource.Play();
+    }
+    public void PlayBossAudio()
+    {
+        bossAudioSource.Play();
+        defaultAudioSource.Stop();
+    }
 
-    //public void PlayBossAudio()
-    //{
-    //    bossAudioSource.Play();
-    //    defaultAudioSource.Stop();
-    //}
-
-    //public void StopAudioGame()
-    //{
-    //    effectAudioSource.Stop();
-    //    defaultAudioSource.Stop();
-    //    bossAudioSource.Stop();
-    //}
+    public void StopAudioGame()
+    {
+        effectAudioSource.Stop();
+        defaultAudioSource.Stop();
+        bossAudioSource.Stop();
+    }
 }
 

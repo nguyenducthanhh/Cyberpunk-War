@@ -9,15 +9,12 @@ public class loadingtext : MonoBehaviour {
     private Image imageComp;
     public float speed = 200f;
 
-
-    // Use this for initialization
     void Start () {
         rectComponent = GetComponent<RectTransform>();
         imageComp = rectComponent.GetComponent<Image>();
         imageComp.fillAmount = 0.0f;
     }
-	
-	// Update is called once per frame
+
 	void Update () {
         int a = 0;
         if (imageComp.fillAmount != 1f)

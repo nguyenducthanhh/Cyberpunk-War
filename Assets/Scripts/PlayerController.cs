@@ -1,12 +1,16 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private AudioManager audioManager;
+    [SerializeField] private GameManager gameManager;
     [SerializeField] private float moveSpeed = 0.01f;
     [SerializeField] private float maxHp = 200f;
     [SerializeField] private Image hpBar;
+ 
     private float currentHp;
 
     private PlayerControls playerControls;
@@ -23,6 +27,8 @@ public class PlayerController : MonoBehaviour
         myAnimatror = GetComponent<Animator>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
     }
+
+
     void Start()
     {
         currentHp = maxHp;
@@ -32,10 +38,18 @@ public class PlayerController : MonoBehaviour
     {
         playerControls.Enable();
     }
+    private void OnDisable()
+    {
+        playerControls.Disable();
 
+    }
     private void Update()
     {
         PlayerInput();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gameManager.PauseGameMenu();
+        }
     }
 
     private void FixedUpdate()
@@ -53,19 +67,13 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         Vector2 normalizedMovement = movement.normalized;
-
-        // 2. TÍNH TOÁN VỊ TRÍ MỚI (DÙNG PHÉP NHÂN)
         Vector2 newPosition = rb.position + normalizedMovement * moveSpeed * Time.deltaTime;
-
-        // 3. DI CHUYỂN
         rb.MovePosition(newPosition);
 
     }
 
     public bool IsMoving()
     {
-        // 'movement' là biến Vector2 mà bạn đã dùng
-        // .magnitude > 0.1f (thay vì == 0) để an toàn
         return movement.magnitude > 0.1f;
     }
     public void TakeDamage(float damage)
@@ -74,28 +82,56 @@ public class PlayerController : MonoBehaviour
         currentHp -= damage;
         currentHp = Mathf.Max(currentHp, 0);
         UpdateHpBar();
-        Debug.Log("Player took " + damage + " damage. HP left: " + currentHp);
+       
 
         if (currentHp <= 0)
         {
             Die();
+     
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.CompareTag("Money"))
+        {
+            gameManager.AddMoney();
+            Destroy(collision.gameObject);
+            audioManager.PlayMoneySound();
+        }
+        if (collision.CompareTag("Medicine"))
+        {
+            gameManager.HealPlayer();
+            Destroy(collision.gameObject);
+            audioManager.PlayHealSound();
+        }
+        
+       
+    }
+
+    public void Heal(float healValue)
+    {
+        if (currentHp < maxHp)
+        {
+            currentHp += healValue;
+            currentHp = Mathf.Min(currentHp, maxHp);
+            UpdateHpBar();
         }
     }
 
     private void Die()
     {
-        // Kích hoạt cờ, chỉ chạy 1 lần
+
         if (isDead) return;
         isDead = true;
 
-        // Kích hoạt animation
         if (myAnimatror != null)
         {
             myAnimatror.SetTrigger("Die");
         }
 
-        // Vô hiệu hóa Enemy để nó không di chuyển, tấn công, hoặc bị bắn
-        this.enabled = false; // Tắt script này (dừng Update/MoveToPlayer)
+        this.enabled = false;
 
         Collider2D col = GetComponent<Collider2D>();
         if (col != null) col.enabled = false;
@@ -103,8 +139,9 @@ public class PlayerController : MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb != null) rb.simulated = false;
 
-        // Hủy object SAU KHI animation chạy xong
         Destroy(gameObject, dieAnimationTime);
+
+        gameManager.GameOverMenu();
     }
     private void UpdateHpBar()
     {
@@ -121,5 +158,6 @@ public class PlayerController : MonoBehaviour
     public float GetMaxHp()
     {
         return maxHp;
-    }
+    }    
+    
 }

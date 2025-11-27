@@ -15,7 +15,6 @@ public class Hand : MonoBehaviour
     [SerializeField] private Vector3 rightLocalPosHand = new Vector3(-0.349f, 1.23786f, 0f);
     [SerializeField] private Vector3 leftLocalPosHand = new Vector3(0.343f, 1.184f, 0f);
 
-    [Header("Fire sockets")]
     [SerializeField] private Transform firePoint;  
     [SerializeField] private Vector3 fireR = new Vector3(1.3954f, -0.0986f, 0f);     
     [SerializeField] private Vector3 fireL = new Vector3(1.399f, 0.101f, 0f);      
@@ -44,10 +43,8 @@ public class Hand : MonoBehaviour
         Vector3 displacement = transform.position - mouseW;
         float angle = Mathf.Atan2(displacement.y, displacement.x) * Mathf.Rad2Deg;
 
-    
         transform.rotation = Quaternion.Euler(0, 0, angle + rotateOffset);
-
-     
+   
         bool lookRight = (angle < -90f || angle > 90f);
 
         if (lookRight)
