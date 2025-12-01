@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class BossEnemy : Enemy
 {
+    [SerializeField] private AudioManager audioManager;
+    [SerializeField] private float dieAnimationTime = 1f;
+
     [SerializeField] private Transform attackPoint;
-
     [SerializeField] private float meleeAttackRange = 2f;
-
     [SerializeField] private float rangedAttackRange = 10f;
-
     [SerializeField] private int meleeAttackDamage = 15;
     [SerializeField] private float meleeAttackCooldown = 2f;
     private float nextMeleeAttackTime = 0f;
@@ -21,7 +21,6 @@ public class BossEnemy : Enemy
     [SerializeField] private float bulletSpeed = 30f;
     [SerializeField] private float bulletCircleSpeed = 20f;
     [SerializeField] private float rangedAttackCooldown = 3f;
-
     [SerializeField] private float burstFireDelay = 0.1f;
     private float nextRangedAttackTime = 0f;
 
@@ -214,9 +213,17 @@ public class BossEnemy : Enemy
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(attackPoint.position, rangedAttackRange);
     }
-    protected override void Die()
+    public override void Die()
     {
+        audioManager.PlayBossDie();
         base.Die();
-        gameManager.GameWinMenu();
+      
     }
+    private void EventDie()
+    {
+        gameManager.GameWinMenu();
+        Destroy(gameObject, dieAnimationTime);
+        
+    }
+
 }

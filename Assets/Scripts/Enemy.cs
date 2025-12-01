@@ -6,21 +6,16 @@ using UnityEngine.UI;
 
 public abstract class Enemy : MonoBehaviour
 {
-    [SerializeField] protected float tick = 0.2f;
-    [SerializeField] protected float enterDamage = 10f;
-    [SerializeField] protected float stayDamage = 5f;
     [SerializeField] protected float maxHp = 50f;
     [SerializeField] protected float enemyMoveSpeed = 3f;
     [SerializeField] private Image hpBar;
 
-    [SerializeField] private float dieAnimationTime = 1f;
     protected Animator animator;
     protected bool isDead = false;
 
     protected Transform targetPlayer;
     protected float currentHp;
     protected PlayerController player;
-    protected bool playerInside;
 
     protected virtual void Start()
     {
@@ -52,6 +47,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (isDead) return;
         MoveToPlayer();
     }
 
@@ -93,9 +89,8 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    protected virtual void Die()
+    public virtual void Die()
     {
-        if (isDead) return;
         isDead = true;
 
         if (animator != null)
@@ -111,7 +106,7 @@ public abstract class Enemy : MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb != null) rb.simulated = false;
 
-        Destroy(gameObject, dieAnimationTime);
+     
     }
 
     protected void UpdateHpBar()

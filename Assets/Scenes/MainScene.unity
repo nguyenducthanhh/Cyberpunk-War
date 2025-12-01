@@ -48432,9 +48432,14 @@ MonoBehaviour:
   bossAudioSource: {fileID: 1203563057}
   effectAudioSource: {fileID: 2048546063}
   shootClip: {fileID: 8300000, guid: 0bfedf45c81071b49a2e68ba0d99b325, type: 3}
+  outOfBullet: {fileID: 8300000, guid: 3dcd7e36e31cd6a4ca24171625f6290a, type: 3}
   reloadClip: {fileID: 8300000, guid: 9b8edb2dd1b8b3249b35b4878a2e65e7, type: 3}
   moneyClip: {fileID: 8300000, guid: 7d04371faa1356d4d9b934e94ae19e13, type: 3}
   healClip: {fileID: 8300000, guid: c605b00288f5e6345bec23765055099c, type: 3}
+  playerDie: {fileID: 8300000, guid: 556793d31d82b024aa87584b41cf4eee, type: 3}
+  playerHurt: {fileID: 8300000, guid: 0c98e0a2a2a8f484fa2fafa40068e906, type: 3}
+  bossDie: {fileID: 8300000, guid: 36a48eae445fa8a46abcaba11e7e7f05, type: 3}
+  gameManager: {fileID: 1857581139}
 --- !u!4 &1193833522
 Transform:
   m_ObjectHideFlags: 0
@@ -51546,7 +51551,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1566674853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51559,8 +51564,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5616d8a96a1695a4db620a774f99c375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnedEnemies: []
   enemies:
+  - {fileID: 7645269707646040998, guid: 7fbbf66b6bc221f4d90a1e88e2ab4f28, type: 3}
+  - {fileID: 8153067803150958845, guid: c50a73436779eb944a98bd4ce731e9d6, type: 3}
+  - {fileID: 8545687872961036621, guid: 084797bdf82c9cb4587e5df7a3069125, type: 3}
   - {fileID: 3299814711392999550, guid: e306cf93c1b3c524ca0c649c20762dfb, type: 3}
+  - {fileID: 1669778469577115927, guid: 41508823a063e6049a42aa59984f5daf, type: 3}
   - {fileID: 7717664690060749731, guid: 6e47d590353aeab4b8ef55ecf29199ac, type: 3}
   spawnPoints:
   - {fileID: 1563975279}
@@ -53343,11 +53353,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f1bec88257d0548b740c64eef1481f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyThreshold: 10
+  moneyThreshold: 20
   boss: {fileID: 1887588173}
   enemy: {fileID: 1566674852}
   moneyBar: {fileID: 1223680986}
   gameUI: {fileID: 1237507420}
+  enemySpawn: {fileID: 1566674853}
   pauseGameMenu: {fileID: 1333838503}
   gameOverMenu: {fileID: 1745514356}
   gameWinMenu: {fileID: 1058738942}
@@ -53616,12 +53627,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e524ca36a100c644b9ba01617b8bb660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tick: 0.2
-  enterDamage: 10
-  stayDamage: 5
-  maxHp: 500
+  maxHp: 700
   enemyMoveSpeed: 3
   hpBar: {fileID: 1154796446}
+  audioManager: {fileID: 1193833521}
   dieAnimationTime: 1
   attackPoint: {fileID: 1228060102}
   meleeAttackRange: 2.59
@@ -53633,7 +53642,7 @@ MonoBehaviour:
   firePoint: {fileID: 1293713419}
   bulletSpeed: 30
   bulletCircleSpeed: 20
-  rangedAttackCooldown: 6
+  rangedAttackCooldown: 5
   burstFireDelay: 0.1
   playerLayer:
     serializedVersion: 2

@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioManager audioManager;
     [SerializeField] private PlayerController player;
     [SerializeField] private float healValue = 20f;
+   
     private void Awake()
     {
         player = FindAnyObjectByType<PlayerController>();
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
 
     private void CallBoss()
     {
+        enemySpawn.ClearEnemy();
         bossCalled = true;
         boss.SetActive(true);
         enemy.SetActive(false);
@@ -83,23 +85,8 @@ public class GameManager : MonoBehaviour
         gameOverMenu.SetActive(true);
         pauseGameMenu.SetActive(false);
         gameWinMenu.SetActive(false);
-        audioManager.StopAudioGame();
         Time.timeScale = 0f;
-        
-        GameObject[] existingEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (GameObject enemy in existingEnemies)
-        {
-           
-            Destroy(enemy);
 
-        }
-
-       
-        if (boss != null && boss.activeInHierarchy)
-        {
-         
-            Destroy(boss);
-        }
     }
 
     public void GameWinMenu()
@@ -112,6 +99,11 @@ public class GameManager : MonoBehaviour
     {
         pauseGameMenu.SetActive(true);
         Time.timeScale = 0f;
+
+        if(bossCalled != true)
+            audioManager.StopAudioDefault();
+        else if (bossCalled == true)
+            audioManager.StopAudioBoss();
     }
 
     public void StartGame()
@@ -136,11 +128,16 @@ public class GameManager : MonoBehaviour
     {
         pauseGameMenu.SetActive(false);
         Time.timeScale = 1f;
+
+        if(bossCalled != true)
+            audioManager.ContinueAudioDefault();
+        else if(bossCalled == true)
+            audioManager.ContinueAudioBoss();
         if (pauseGameMenu != null)
         {
             pauseGameMenu.SetActive(false);
         }
-    
+        
         if (gameOverMenu != null) gameOverMenu.SetActive(false);
         if (gameWinMenu != null) gameWinMenu.SetActive(false);
         Time.timeScale = 1f;

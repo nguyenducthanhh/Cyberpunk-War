@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        if (isDead) return;
         PlayerInput();
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isDead) return;
         Move();
     }
 
@@ -82,7 +84,7 @@ public class PlayerController : MonoBehaviour
         currentHp -= damage;
         currentHp = Mathf.Max(currentHp, 0);
         UpdateHpBar();
-       
+        audioManager.PlayHurtSound();
 
         if (currentHp <= 0)
         {
@@ -122,10 +124,8 @@ public class PlayerController : MonoBehaviour
 
     private void Die()
     {
-
-        if (isDead) return;
         isDead = true;
-
+        audioManager.PlayPlayerDie();
         if (myAnimatror != null)
         {
             myAnimatror.SetTrigger("Die");
@@ -139,10 +139,18 @@ public class PlayerController : MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb != null) rb.simulated = false;
 
-        Destroy(gameObject, dieAnimationTime);
+        
 
-        gameManager.GameOverMenu();
+
     }
+
+    private void EventDie() 
+    {
+        gameManager.GameOverMenu();
+        Destroy(gameObject, dieAnimationTime);
+    }
+
+
     private void UpdateHpBar()
     {
         if (hpBar != null)

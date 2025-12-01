@@ -13,7 +13,7 @@ public class EnemyRanged : Enemy
     [SerializeField] private GameObject BulletPrefabs;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float speedDan = 10f;
-
+    [SerializeField] private float dieAnimationTime = 1f;
     [SerializeField] bool requireLineOfSight = true;
     [SerializeField] LayerMask obstacleLayer;
 
@@ -142,10 +142,11 @@ public class EnemyRanged : Enemy
         }
     }
 
-    protected override void Die()
+    public override void Die()
     {
         DropLoot();
         base.Die();
+        Destroy(gameObject, dieAnimationTime);
     }
     void OnDrawGizmosSelected()
     {
@@ -153,4 +154,6 @@ public class EnemyRanged : Enemy
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
+
+   
 }

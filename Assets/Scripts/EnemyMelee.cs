@@ -10,11 +10,9 @@ public class EnemyMelee : Enemy
     public int attackDamage = 10;
     public float attackCooldown = 1.2f;
     public LayerMask playerLayer;
-
-    
+    [SerializeField] private float dieAnimationTime = 1f;
     public bool requireLineOfSight = true;
     public LayerMask obstacleLayer;
-
    
     private float nextAttackTime = 0f;
  
@@ -111,10 +109,12 @@ public class EnemyMelee : Enemy
         }
     }
 
-    protected override void Die()
+    public override void Die()
     {
         DropLoot();
         base.Die();
+        Destroy(gameObject, dieAnimationTime);
+
     }
     void OnDrawGizmosSelected()
     {

@@ -41,8 +41,10 @@ public class Gun : MonoBehaviour
 
         Shoot();
         CheckForReload();
+        OutOfBullet();
     }
 
+    
     void Shoot()
     {
         if (Input.GetMouseButton(0) && currentAmmo > 0 && Time.time > nextShot)
@@ -81,6 +83,13 @@ public class Gun : MonoBehaviour
         isReloading = false;
     }
 
+    void OutOfBullet()
+    {
+        if (Input.GetMouseButtonDown(0) && currentAmmo == 0 && !isReloading)
+        {
+            audioManager.PlayOutOfBulletSound();
+        }
+    }
     private void UpdateAmmoText()
     {
         if (ammoText != null)
@@ -91,7 +100,9 @@ public class Gun : MonoBehaviour
             }
             else
             {
+                audioManager.PlayOutOfBulletSound();
                 ammoText.text = "0";
+               
             }
         }
     }
