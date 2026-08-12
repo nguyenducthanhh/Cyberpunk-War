@@ -59,7 +59,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: -267806385
+  m_SortingLayerID: 1876466051
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &7075090406706308155
@@ -439,13 +439,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bf481f00d0b758428d276b76420bb2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tick: 0.2
-  enterDamage: 10
-  stayDamage: 5
   maxHp: 50
   enemyMoveSpeed: 3
   hpBar: {fileID: 4353303009805383022}
-  dieAnimationTime: 1
   attackPoint: {fileID: 5603472226062729058}
   attackRange: 7.35
   attackDamage: 10
@@ -456,6 +452,7 @@ MonoBehaviour:
   BulletPrefabs: {fileID: 7204899650132809671, guid: 42a18788be9cbdf4bbfbe038c3b7dccf, type: 3}
   firePoint: {fileID: 7407617657505000284}
   speedDan: 10
+  dieAnimationTime: 1
   requireLineOfSight: 1
   obstacleLayer:
     serializedVersion: 2

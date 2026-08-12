@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -10,7 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed = 0.01f;
     [SerializeField] private float maxHp = 200f;
     [SerializeField] private Image hpBar;
- 
+
     private float currentHp;
 
     private PlayerControls playerControls;
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
     {
         currentHp = maxHp;
         UpdateHpBar();
+    
     }
     private void OnEnable()
     {
@@ -50,7 +52,9 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             gameManager.PauseGameMenu();
+
         }
+
     }
 
     private void FixedUpdate()
@@ -89,7 +93,7 @@ public class PlayerController : MonoBehaviour
         if (currentHp <= 0)
         {
             Die();
-     
+
         }
     }
 
@@ -97,7 +101,7 @@ public class PlayerController : MonoBehaviour
     {
 
         if (collision.CompareTag("Money"))
-        {
+        {  
             gameManager.AddMoney();
             Destroy(collision.gameObject);
             audioManager.PlayMoneySound();
@@ -108,8 +112,8 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
             audioManager.PlayHealSound();
         }
-        
-       
+
+
     }
 
     public void Heal(float healValue)
@@ -139,12 +143,9 @@ public class PlayerController : MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb != null) rb.simulated = false;
 
-        
-
-
     }
 
-    private void EventDie() 
+    private void EventDie()
     {
         gameManager.GameOverMenu();
         Destroy(gameObject, dieAnimationTime);
@@ -158,14 +159,5 @@ public class PlayerController : MonoBehaviour
             hpBar.fillAmount = currentHp / maxHp;
         }
     }
-    public float GetCurrentHp()
-    {
-        return currentHp;
-    }
 
-    public float GetMaxHp()
-    {
-        return maxHp;
-    }    
-    
 }

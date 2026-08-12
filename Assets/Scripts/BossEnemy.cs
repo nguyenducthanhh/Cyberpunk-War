@@ -200,10 +200,7 @@ public class BossEnemy : Enemy
         }
         isAttacking = false;
     }
-    public void AttackAnimationFinished()
-    {
-        isAttacking = false;
-    }
+
 
     private void OnDrawGizmosSelected()
     {

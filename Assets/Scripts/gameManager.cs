@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    private int currentMoney;
+    public int currentMoney;
     [SerializeField] private int moneyThreshold = 20;
     [SerializeField] private GameObject boss;
     [SerializeField] private GameObject enemy;
@@ -140,7 +140,6 @@ public class GameManager : MonoBehaviour
         
         if (gameOverMenu != null) gameOverMenu.SetActive(false);
         if (gameWinMenu != null) gameWinMenu.SetActive(false);
-        Time.timeScale = 1f;
     }
 
 }

@@ -40,7 +40,7 @@ public class EnemyMelee : Enemy
         }
 
         Collider2D hit = Physics2D.OverlapCircle(attackPoint.position, attackRange, playerLayer);
-
+    
         bool canAttack = false;
 
         if (hit != null)
